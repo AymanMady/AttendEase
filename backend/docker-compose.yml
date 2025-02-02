@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_DB: tendschool
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: ayman2242
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    container_name: tendschool
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://admin:ayman2242@db:5432/tendschool
+    volumes:
+      - .:/app
+
+volumes:
+  postgres_data:
