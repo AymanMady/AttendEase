@@ -6,6 +6,7 @@ import { HeaderComponent } from '../../shared/components/header/header.component
 import { StudentService } from '../../core/services/student.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgModel } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-attendances',
@@ -16,17 +17,27 @@ import { FormsModule, NgModel } from '@angular/forms';
 export class AttendancesComponent {
 
   students: any[] = [];
+  id: any;
 
-  constructor(private StudentService:StudentService,private attendanceService:AttendanceService) {}
+  constructor(
+    private StudentService:StudentService,
+    private attendanceService:AttendanceService,
+    private act:ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.getAllStudents();
+
+    console.log(this.id);
+
   }
 
 
 
   getAllStudents() {
-    this.StudentService.GetAll().subscribe(data => {
+    this.id = this.act.snapshot.paramMap.get('id');
+
+    this.StudentService.GetByClass(this.id).subscribe(data => {
       this.students = data.map(student => ({
         ...student,
         isPresent: false

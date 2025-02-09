@@ -4,10 +4,11 @@ import { AuthComponent } from './modules/auth/auth.component';
 import { HomeComponent } from './modules/home/home.component';
 import { AttendancesComponent } from './modules/attendances/attendances.component';
 import { AttendanceGridComponent } from './modules/attendance-grid/attendance-grid.component';
+import { LoaderComponent } from './shared/components/loader/loader.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,AuthComponent,HomeComponent,AttendancesComponent,AttendanceGridComponent],
+  imports: [RouterOutlet,LoaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

@@ -1,6 +1,13 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
+import { appConfig } from './app/app.config';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoaderInterceptor } from './app/interceptors/loader.interceptor';
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+bootstrapApplication(AppComponent, {
+  ...appConfig, // Utilisation directe de l'appConfig
+  providers: [
+    ...appConfig.providers, // Garde les providers existants
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true } // Ajoute l'interceptor
+  ]
+}).catch(err => console.error(err));
