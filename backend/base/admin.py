@@ -10,3 +10,5 @@ admin.site.register(Classroom)
 admin.site.register(Student)
 
 admin.site.register(Attendance)
+
+admin.site.register(CustomUser)

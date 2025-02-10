@@ -48,8 +48,8 @@ export class AttendancesComponent {
   saveAttendance() {
     const attendanceData = this.students.map(student => ({
       student: student.id,
-      classroom : 1,
-      date: '2024-10-10',
+      classroom : this.id,
+      date: new Date().toISOString().split('T')[0],
       justification: '',
       is_present: student.isPresent
     }));

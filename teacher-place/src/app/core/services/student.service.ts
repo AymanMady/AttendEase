@@ -29,7 +29,7 @@ export class StudentService {
 
   GetByClass(Id: number) {
     const headers = this.authService.getAuthorizationHeaders();  // Utilisation des en-têtes
-    return this.http.get<any[]>(`${this.apiUrl}/class/${Id}`, {
+    return this.http.get<any[]>(`${this.apiUrl}/by_classroom/${Id}`, {
       headers: headers || {}  // Ajouter les headers à la requête
     });
   }

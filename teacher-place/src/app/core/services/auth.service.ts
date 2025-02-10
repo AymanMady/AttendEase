@@ -27,4 +27,9 @@ export class AuthService {
     }
   }
 
+  logout(token: any): Observable<any> {
+    const headers = this.getAuthorizationHeaders();
+    return this.http.post(this.apiUrl + "/logout/", token, { headers });
+  }
+
 }

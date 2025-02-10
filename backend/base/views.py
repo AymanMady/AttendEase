@@ -4,30 +4,46 @@ from .serializers import *
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import action
-from rest_framework.response import Response
-from rest_framework import status
+from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
+
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            refresh_token = request.data.get("refresh_token")
+            if not refresh_token:
+                return Response({"error": "Refresh token manquant"}, status=status.HTTP_400_BAD_REQUEST)
+            
+            token = RefreshToken(refresh_token)
+            token.blacklist()  
+            
+            return Response({"message": "Déconnexion réussie"}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
     permission_classes = [IsAuthenticated]  
 
-    
-    @action(detail=True, methods=['get'], url_path='classroom')
-    def get_students_by_class(self, request, pk=None):
+    @action(detail=False, methods=['get'], url_path='by_classroom/(?P<classroom_id>[^/.]+)')
+    def get_students_by_class(self, request, classroom_id=None):
         """
         Retourne les étudiants appartenant à une classe spécifique.
-        Ex: /api/students/classroom/1/
+        Ex: /students/by_classroom/1/
         """
-        students = Student.objects.filter(classroom=pk)
-        
+        students = Student.objects.filter(classroom_id=classroom_id)
+
         if not students.exists():
             return Response({"error": "Aucun étudiant trouvé pour cette classe"}, status=status.HTTP_404_NOT_FOUND)
 
         serializer = self.get_serializer(students, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
+
 class ClassroomViewSet(viewsets.ModelViewSet):
     queryset = Classroom.objects.all()
     serializer_class = ClassroomSerializer
@@ -48,16 +64,12 @@ class AttendanceViewSet(viewsets.ModelViewSet):
         """
         Cette méthode permet de recevoir une liste de présences et de les enregistrer en une seule requête.
         """
-        attendances_data = request.data  # La liste des présences envoyée depuis le frontend
+        attendances_data = request.data 
 
-        print("########################################")
-        print(attendances_data)
-
-        # Sérialiser les données avec l'option many=True pour indiquer une liste d'objets
         serializer = self.get_serializer(data=attendances_data, many=True)
         
         if serializer.is_valid():
-            serializer.save()  # Enregistre toutes les présences dans la base de données
+            serializer.save() 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
