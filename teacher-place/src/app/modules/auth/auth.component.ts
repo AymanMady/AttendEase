@@ -12,9 +12,8 @@ import { CommonModule } from '@angular/common';
 })
 export class AuthComponent {
 
+  loginForm: FormGroup;
   isError: boolean = false;
-  loginForm: FormGroup ;
-
   constructor(
     private service: AuthService,
     private fb: FormBuilder,
@@ -27,17 +26,16 @@ export class AuthComponent {
   }
 
 
-
   login() {
-    this.service.login(this.loginForm.value).subscribe((response) => {
+    this.service.login(this.loginForm.value).subscribe(response => {
       if (response.access) {
         const jwtToken = response.access;
         localStorage.setItem('JWT', jwtToken);
         this.router.navigateByUrl('home');
-      } else {
-        this.isError = true
       }
-    })
+    }, error => {
+      this.isError = true;
+    });
   }
-
 }
+

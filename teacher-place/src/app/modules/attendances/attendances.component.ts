@@ -29,7 +29,6 @@ export class AttendancesComponent {
     this.getAllStudents();
 
     console.log(this.id);
-
   }
 
 

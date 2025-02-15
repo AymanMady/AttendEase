@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';
 })
 export class ClassroomService {
 
-  apiUrl= 'http://localhost:8000/classrooms';
+  apiUrl= 'http://93.127.213.87:8000/classrooms';
   constructor(private http:HttpClient, private authService: AuthService) {}
 
   GetAll(){

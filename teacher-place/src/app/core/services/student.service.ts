@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';  // Assurez-vous d'importer AuthSe
 })
 export class StudentService {
 
-  apiUrl = 'http://localhost:8000/students';
+  apiUrl = 'http://93.127.213.87:8000/students';
 
   constructor(private http: HttpClient, private authService: AuthService) {  // Injection de AuthService
   }

@@ -29,6 +29,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',  
     '127.0.0.1',
+    '93.127.213.87',
+    '0.0.0.0'
 ]
 
 AUTH_USER_MODEL = 'base.CustomUser'
