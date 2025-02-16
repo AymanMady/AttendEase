@@ -2,35 +2,37 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Student } from '../../model/student';
 import { AuthService } from './auth.service';  // Assurez-vous d'importer AuthService
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentService {
 
-  apiUrl = 'http://93.127.213.87:8000/students';
+  private baseUrl = environment.apiBaseUrl;
 
-  constructor(private http: HttpClient, private authService: AuthService) {  // Injection de AuthService
+
+  constructor(private http: HttpClient, private authService: AuthService) {  
   }
 
   GetAll() {
-    const headers = this.authService.getAuthorizationHeaders();  // Utilisation de l'instance d'AuthService
-    return this.http.get<any[]>(this.apiUrl, {
-      headers: headers || {}  // Si les headers sont undefined, on passe un objet vide
+    const headers = this.authService.getAuthorizationHeaders();
+    return this.http.get<any[]>(this.baseUrl + '/students/', {
+      headers: headers || {}
     });
   }
 
   Get(Id: number) {
-    const headers = this.authService.getAuthorizationHeaders();  // Utilisation des en-têtes
-    return this.http.get<Student>(`${this.apiUrl}/${Id}`, {
-      headers: headers || {}  // Ajouter les headers à la requête
+    const headers = this.authService.getAuthorizationHeaders();
+    return this.http.get<Student>(`${this.baseUrl}/students/${Id}`, {
+      headers: headers || {}
     });
   }
 
   GetByClass(Id: number) {
-    const headers = this.authService.getAuthorizationHeaders();  // Utilisation des en-têtes
-    return this.http.get<any[]>(`${this.apiUrl}/by_classroom/${Id}`, {
-      headers: headers || {}  // Ajouter les headers à la requête
+    const headers = this.authService.getAuthorizationHeaders();
+    return this.http.get<any[]>(`${this.baseUrl}/students/by_classroom/${Id}`, {
+      headers: headers || {}
     });
   }
 }

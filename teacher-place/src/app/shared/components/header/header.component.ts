@@ -15,7 +15,7 @@ export class HeaderComponent {
   logout(): void {
     const refreshToken = localStorage.getItem('refresh_token');
     this.authservice.logout(refreshToken);
-    localStorage.removeItem('token');
+    localStorage.removeItem('JWT');
     this.router.navigate(['login']);
   }
 

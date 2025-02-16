@@ -2,26 +2,28 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Classroom } from '../../model/classroom';
 import { AuthService } from './auth.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClassroomService {
 
-  apiUrl= 'http://93.127.213.87:8000/classrooms';
+  private baseUrl = environment.apiBaseUrl;
+
   constructor(private http:HttpClient, private authService: AuthService) {}
 
   GetAll(){
     const headers = this.authService.getAuthorizationHeaders();
-    return this.http.get<Classroom[]>(this.apiUrl, {
+    return this.http.get<Classroom[]>(this.baseUrl + '/classrooms/', {
         headers: headers || {}
       }
     );
   }
 
-  Get(empId:number){
+  Get(Id:number){
     const headers = this.authService.getAuthorizationHeaders();
-    return this.http.get<Classroom>(`${this.apiUrl}/${empId}`
+    return this.http.get<Classroom>(`${this.baseUrl}/classrooms/${Id}`
       , {
         headers: headers || {}
       }

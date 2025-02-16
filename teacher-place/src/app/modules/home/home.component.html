@@ -9,29 +9,38 @@
   <div class="page-wrapper" style="width: 100%;margin: 0;">
   <div class="content container-fluid">
 
-  <div class="page-header">
-  <div class="row">
-  <div class="col">
-  <h3 class="page-title">Cards</h3>
-  <ul class="breadcrumb">
-  <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-  <li class="breadcrumb-item active">Components</li>
-  </ul>
-  </div>
-  </div>
-  </div>
+    <div class="page-header">
+      <div class="row">
+      <div class="col-sm-12">
+      <div class="page-sub-header">
+      <h3 class="page-title">Welcome Bruklin!</h3>
+      <ul class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item active">Student</li>
+      </ul>
+      </div>
+      </div>
+      </div>
+      </div>
 
 
-  <div class="row">
-  <div class="col-12 col-md-6 col-lg-4 d-flex" *ngFor="let classroom of classrooms">
-  <div class="card flex-fill bg-white" [routerLink]="[ '/attendances/' , classroom.id ]">
-  <img alt="Card Image" src="assets/img/img-01.jpg" class="card-img-top">
-  <div class="card-header">
-  <h5 class="card-title mb-0">{{classroom.name}}</h5>
-  </div>
-  </div>
-  </div>
-  </div>
+      <div class="row">
+      <div class="col-xl-3 col-sm-6 col-12 d-flex" *ngFor="let classroom of classrooms">
+      <div class="card bg-comman w-100" (click)="takeAttendace(classroom.id)">
+      <div class="card-body">
+      <div class="db-widgets d-flex justify-content-between align-items-center">
+      <div class="db-info">
+      <h6>Test Attended</h6>
+      <h3>{{classroom.name}}</h3>
+      </div>
+      <div class="db-icon">
+      <img src="assets/img/icons/student-icon-01.svg" alt="Dashboard Icon">
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
 
   <footer>
   <p>Copyright © 2022 Dreamguys.</p>

@@ -8,6 +8,11 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(withInterceptorsFromDi()), 
+    provideHttpClient(withInterceptorsFromDi()),
   ]
 };
+
+export const APP_CONFIG = {
+  apiBaseUrl: 'http://127.0.0.1/api',
+};
+

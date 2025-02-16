@@ -1,20 +1,22 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  apiUrl = 'http://93.127.213.87:8000/api';
+  private baseUrl = environment.apiBaseUrl; 
+
 
   constructor(
     private http: HttpClient
   ) { }
 
   login(loginRequest: any): Observable<any> {
-    return this.http.post(this.apiUrl + "/token/", loginRequest);
+    return this.http.post(this.baseUrl + "/token/", loginRequest);
   }
 
   public getAuthorizationHeaders(): HttpHeaders | undefined {
@@ -29,7 +31,7 @@ export class AuthService {
 
   logout(token: any): Observable<any> {
     const headers = this.getAuthorizationHeaders();
-    return this.http.post(this.apiUrl + "/logout/", token, { headers });
+    return this.http.post(this.baseUrl + "/logout/", token, { headers });
   }
 
 }
