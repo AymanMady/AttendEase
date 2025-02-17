@@ -1,6 +1,13 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 
+
+class School(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return self.name
+    
 class CustomUserManager(BaseUserManager):
     def create_user(self, phone, password=None, **extra_fields):
         if not phone:
@@ -19,6 +26,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     phone = models.CharField(max_length=15, unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    is_teacher = models.BooleanField(default=False)
+    is_director = models.BooleanField(default=False)
+    school = models.ForeignKey(School, on_delete=models.CASCADE, related_name="users",null=True)
+
 
     objects = CustomUserManager()
 
@@ -28,11 +39,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.phone
 
-class School(models.Model):
-    name = models.CharField(max_length=255, unique=True)
-
-    def __str__(self):
-        return self.name
 
 class Classroom(models.Model):
     name = models.CharField(max_length=100)
