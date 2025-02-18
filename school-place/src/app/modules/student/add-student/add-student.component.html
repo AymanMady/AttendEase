@@ -25,100 +25,35 @@
   <h5 class="form-title student-info">Student Information <span><a href="javascript:;"><i class="feather-more-vertical"></i></a></span></h5>
   </div>
   <div class="col-12 col-sm-4">
+    <div class="form-group local-forms">
+    <label>Number <span class="login-danger">*</span></label>
+    <input class="form-control" type="number" [(ngModel)]="student.name_ar" placeholder="">
+    </div>
+  </div>
+  <div class="col-12 col-sm-4">
   <div class="form-group local-forms">
-  <label>First Name <span class="login-danger">*</span></label>
-  <input class="form-control" type="text" placeholder="Enter First Name">
+  <label>Arabic Name <span class="login-danger">*</span></label>
+  <input class="form-control" type="text" [(ngModel)]="student.name_ar" placeholder="Enter Arabic Name">
   </div>
   </div>
   <div class="col-12 col-sm-4">
   <div class="form-group local-forms">
-  <label>Last Name <span class="login-danger">*</span></label>
-  <input class="form-control" type="text" placeholder="Enter First Name">
+  <label>fransh Name <span class="login-danger">*</span></label>
+  <input class="form-control" type="text" [(ngModel)]="student.name_fr" placeholder="Enter Fransh Name">
   </div>
   </div>
   <div class="col-12 col-sm-4">
   <div class="form-group local-forms">
-  <label>Gender <span class="login-danger">*</span></label>
-  <select class="form-control select">
-  <option>Select Gender</option>
-  <option>Female</option>
-  <option>Male</option>
-  <option>Others</option>
-  </select>
-  </div>
-  </div>
-  <div class="col-12 col-sm-4">
-  <div class="form-group local-forms calendar-icon">
-  <label>Date Of Birth <span class="login-danger">*</span></label>
-  <input class="form-control datetimepicker" type="text" placeholder="DD-MM-YYYY">
-  </div>
-  </div>
-  <div class="col-12 col-sm-4">
-  <div class="form-group local-forms">
-  <label>Roll </label>
-  <input class="form-control" type="text" placeholder="Enter Roll Number">
-  </div>
-  </div>
-  <div class="col-12 col-sm-4">
-  <div class="form-group local-forms">
-  <label>Blood Group <span class="login-danger">*</span></label>
-  <select class="form-control select">
-  <option>Please Select Group </option>
-  <option>B+</option>
-  <option>A+</option>
-  <option>O+</option>
-  </select>
-  </div>
-  </div>
-  <div class="col-12 col-sm-4">
-  <div class="form-group local-forms">
-  <label>Religion <span class="login-danger">*</span></label>
-  <select class="form-control select">
-  <option>Please Select Religion </option>
-  <option>Hindu</option>
-  <option>Christian</option>
-  <option>Others</option>
-  </select>
-  </div>
-  </div>
-  <div class="col-12 col-sm-4">
-  <div class="form-group local-forms">
-  <label>E-Mail <span class="login-danger">*</span></label>
-  <input class="form-control" type="text" placeholder="Enter Email Address">
+  <label> Phone Number <span class="login-danger">*</span></label>
+  <input class="form-control" type="text" [(ngModel)]="student.phone" >
   </div>
   </div>
   <div class="col-12 col-sm-4">
   <div class="form-group local-forms">
   <label>Class <span class="login-danger">*</span></label>
-  <select class="form-control select">
-  <option>Please Select Class </option>
-  <option>12</option>
-  <option>11</option>
-  <option>10</option>
+  <select class="form-control select" [(ngModel)]="student.classe">
+  <option *ngFor="let class of classes"  value="{{class.id}}">{{class.name}} </option>
   </select>
-  </div>
-  </div>
-  <div class="col-12 col-sm-4">
-  <div class="form-group local-forms">
-  <label>Section <span class="login-danger">*</span></label>
-  <select class="form-control select">
-  <option>Please Select Section </option>
-  <option>B</option>
-  <option>A</option>
-  <option>C</option>
-  </select>
-  </div>
-  </div>
-  <div class="col-12 col-sm-4">
-  <div class="form-group local-forms">
-  <label>Admission ID </label>
-  <input class="form-control" type="text" placeholder="Enter Admission ID">
-  </div>
-  </div>
-  <div class="col-12 col-sm-4">
-  <div class="form-group local-forms">
-  <label>Phone </label>
-  <input class="form-control" type="text" placeholder="Enter Phone Number">
   </div>
   </div>
   <div class="col-12 col-sm-4">
@@ -133,7 +68,7 @@
   </div>
   <div class="col-12">
   <div class="student-submit">
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary" (click)="add()">Submit</button>
   </div>
   </div>
   </div>

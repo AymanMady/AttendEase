@@ -31,12 +31,12 @@ class StudentViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]  
 
     @action(detail=False, methods=['get'], url_path='by_classroom/(?P<classroom_id>[^/.]+)')
-    def get_students_by_class(self, request, classroom_id=None):
+    def get_students_by_class(self, request, classe_id=None):
         """
         Retourne les étudiants appartenant à une classe spécifique.
         Ex: /students/by_classroom/1/
         """
-        students = Student.objects.filter(classroom_id=classroom_id)
+        students = Student.objects.filter(classe_id=classe_id)
 
         if not students.exists():
             return Response({"error": "Aucun étudiant trouvé pour cette classe"}, status=status.HTTP_404_NOT_FOUND)
@@ -44,9 +44,9 @@ class StudentViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(students, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-class ClassroomViewSet(viewsets.ModelViewSet):
-    queryset = Classroom.objects.all()
-    serializer_class = ClassroomSerializer
+class ClasseViewSet(viewsets.ModelViewSet):
+    queryset = Classe.objects.all()
+    serializer_class = ClasseSerializer
     permission_classes = [IsAuthenticated]  
 
 class SchoolViewSet(viewsets.ModelViewSet):

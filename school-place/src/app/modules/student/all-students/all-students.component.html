@@ -71,31 +71,29 @@
   </th>
   <th>ID</th>
   <th>Name</th>
+  <th>Name FR</th>
   <th>Class</th>
-  <th>DOB</th>
-  <th>Parent Name</th>
   <th>Mobile Number</th>
-  <th>Address</th>
   <th class="text-end">Action</th>
   </tr>
   </thead>
   <tbody>
-   <tr>
+   <tr *ngFor="let student of students">
   <td>
   <div class="form-check check-tables">
   <input class="form-check-input" type="checkbox" value="something">
   </div>
   </td>
-  <td>PRE2209</td>
+  <td>{{student.numero}}</td>
   <td>
   <h2 class="table-avatar">
   <a href="student-details.html" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="assets/img/profiles/avatar-01.jpg" alt="User Image"></a>
-  <a href="student-details.html">Aaliyah</a>
+  <a href="student-details.html">{{student.name}}</a>
   </h2>
   </td>
-  <td>10 A</td>
-  <td>2 Feb 2002</td>
-  <td>Jeffrey Wong</td>
+  <td>{{student.nameFR}}</td>
+  <td>{{student.classroom}}</td>
+  <td>{{student.phone}}</td>
   <td>097 3584 5870</td>
   <td>911 Deer Ridge Drive,USA</td>
   </tr>
