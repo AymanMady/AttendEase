@@ -4,11 +4,12 @@ import { Student } from '../../../model/student';
 import { ClasseService } from '../../../core/services/classe.service';
 import { Class } from '../../../model/class';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-add-student',
-  imports: [CommonModule,FormsModule],
+  imports: [FormsModule,ReactiveFormsModule,RouterModule,CommonModule],
   templateUrl: './add-student.component.html',
   styleUrl: './add-student.component.css'
 })
@@ -16,34 +17,24 @@ export class AddStudentComponent {
 
   classes:any[] = []
 
-  student:Student= {
-    numero: 0,
-    name_ar: '',
-    name_fr: '',
-    classe: 0,
-    phone: ''
-  };
-  constructor(public service : StudentService,public classService : ClasseService) { }
+  studentForm: FormGroup;
+
+  constructor(private router: Router, private fb: FormBuilder, private classeService: ClasseService,private studentService: StudentService) {
+    this.studentForm = this.fb.group({
+      numero : [0, Validators.required],
+      name_ar : ['', Validators.required],
+      name_fr : ['', Validators.required],
+      classe : [0, Validators.required],
+      phone : ['', Validators.required],
+    });
+  }
 
   ngOnInit(): void{
     this.getclasses()
   }
 
-  add(){
-    console.log(this.student)
-    this.service.addStudent(this.student)
-    .subscribe(
-      res=>{
-        console.log(res);
-      },
-      err=>{
-        console.log(err);
-      }
-    )
-  }
-
   getclasses(): void {
-    this.classService.getAllClasses().subscribe(
+    this.classeService.getAllClasses().subscribe(
       (data: Class[]) => {
         this.classes = data;
         console.log(this.classes)
@@ -53,6 +44,22 @@ export class AddStudentComponent {
       }
     );
   }
+
+  onSubmit() {
+    if (this.studentForm.valid) {
+      const student = this.studentForm.value;
+      this.studentService.addStudent(student).subscribe({
+        next: (response) => {
+          console.log('Etudiant ajoutée avec succès', response);
+          this.router.navigate(['/students']);
+        },
+        error: (error) => {
+          console.error('Erreur lors de l\'ajout de l etudiant', error);
+        },
+      });
+    }
+  }
+
 
 
 

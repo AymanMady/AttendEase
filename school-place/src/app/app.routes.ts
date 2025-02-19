@@ -5,8 +5,8 @@ import { AllStudentsComponent } from './modules/student/all-students/all-student
 import { AddStudentComponent } from './modules/student/add-student/add-student.component';
 import { AllTeachersComponent } from './modules/teacher/all-teachers/all-teachers.component';
 import { AddTeacherComponent } from './modules/teacher/add-teacher/add-teacher.component';
-import { AllClassroomsComponent } from './modules/classroom/all-classrooms/all-classrooms.component';
-import { AddClassroomComponent } from './modules/classroom/add-classroom/add-classroom.component';
+import { AllClassesComponent } from './modules/classe/all-classes/all-classes.component';
+import { AddClasseComponent } from './modules/classe/add-classe/add-classe.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -16,7 +16,7 @@ export const routes: Routes = [
   { path: 'students/add', component: AddStudentComponent },
   { path: 'teachers', component: AllTeachersComponent },
   { path: 'teachers/add', component: AddTeacherComponent },
-  { path: 'classrooms', component: AllClassroomsComponent },
-  { path: 'classrooms/add', component: AddClassroomComponent },
+  { path: 'classrooms', component: AllClassesComponent },
+  { path: 'classrooms/add', component: AddClasseComponent },
 
 ];

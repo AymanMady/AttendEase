@@ -45,6 +45,14 @@ export class StudentService {
     );
   }
 
+  import(file: any): Observable<any> {
+    return this.http.post(this.baseUrl+"/students/import/", file
+      ,{
+        headers: this.authService.getAuthorizationHeaders()
+      }
+    );
+  }
+
   updateStudent(id:any, student: any){
     return this.http.put(this.baseUrl+"/students/"+id,student
       ,{

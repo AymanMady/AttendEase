@@ -6,6 +6,9 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
+import pandas as pd
+from rest_framework.parsers import MultiPartParser
+from django.core.exceptions import ValidationError
 
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
@@ -24,13 +27,13 @@ class LogoutView(APIView):
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
-
 class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
     permission_classes = [IsAuthenticated]  
+    parser_classes = [MultiPartParser]  # Permet de gérer les fichiers envoyés
 
-    @action(detail=False, methods=['get'], url_path='by_classroom/(?P<classroom_id>[^/.]+)')
+    @action(detail=False, methods=['get'], url_path='by_classroom/(?P<classe_id>[^/.]+)')
     def get_students_by_class(self, request, classe_id=None):
         """
         Retourne les étudiants appartenant à une classe spécifique.
@@ -43,6 +46,43 @@ class StudentViewSet(viewsets.ModelViewSet):
 
         serializer = self.get_serializer(students, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['post'], url_path='import')
+    def import_students(self, request):
+        """
+        Importer des étudiants depuis un fichier Excel.
+        Ex: /students/import/ (avec un fichier en paramètre 'file')
+        """
+        file = request.FILES.get('file')
+        if not file:
+            return Response({"error": "Aucun fichier fourni"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            df = pd.read_excel(file, engine='openpyxl')
+            expected_columns = {'numero', 'name_ar', 'name_fr', 'phone', 'classe'}
+            if not expected_columns.issubset(df.columns):
+                return Response({"error": "Le fichier ne contient pas les colonnes requises"}, status=status.HTTP_400_BAD_REQUEST)
+
+            students_created = 0
+            for _, row in df.iterrows():
+                created = Student.objects.create(
+                    {
+                        'numero': row['numero'],
+                        'name_ar': row['name_ar'],
+                        'name_fr': row['name_fr'],
+                        'classe': row['classe'],
+                        'phone': row['phone'],
+                    }
+                )
+                if created:
+                    students_created += 1
+
+            return Response({"message": f"{students_created} étudiants importés avec succès"}, status=status.HTTP_201_CREATED)
+
+        except ValidationError as e:
+            return Response({"error": f"Erreur de validation des données : {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({"error": f"Une erreur est survenue : {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
 
 class ClasseViewSet(viewsets.ModelViewSet):
     queryset = Classe.objects.all()
@@ -73,3 +113,9 @@ class AttendanceViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+
+
+class CustomUserViewSet(viewsets.ModelViewSet):
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
+    permission_classes = [IsAuthenticated]  

@@ -43,4 +43,33 @@ export class AllStudentsComponent {
       }
     );
   }
+
+  selectedFile!: File;
+  message = '';
+
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
+  uploadFile() {
+    if (!this.selectedFile) {
+      this.message = "Veuillez sélectionner un fichier.";
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', this.selectedFile);
+
+
+    this.service.import(formData).subscribe({
+      next: (response) => {
+        this.message = response.message
+      },
+      error: (error) => {
+        this.message = error.error.error
+      },
+    });
+
+  }
 }

@@ -19,7 +19,7 @@
   <div class="col-sm-12">
   <div class="card comman-shadow">
   <div class="card-body">
-  <form>
+  <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
   <div class="row">
   <div class="col-12">
   <h5 class="form-title student-info">Student Information <span><a href="javascript:;"><i class="feather-more-vertical"></i></a></span></h5>
@@ -27,31 +27,31 @@
   <div class="col-12 col-sm-4">
     <div class="form-group local-forms">
     <label>Number <span class="login-danger">*</span></label>
-    <input class="form-control" type="number" [(ngModel)]="student.name_ar" placeholder="">
+    <input class="form-control" type="number" formControlName="numero" placeholder="">
     </div>
   </div>
   <div class="col-12 col-sm-4">
   <div class="form-group local-forms">
   <label>Arabic Name <span class="login-danger">*</span></label>
-  <input class="form-control" type="text" [(ngModel)]="student.name_ar" placeholder="Enter Arabic Name">
+  <input class="form-control" type="text" formControlName="name_ar" placeholder="Enter Arabic Name">
   </div>
   </div>
   <div class="col-12 col-sm-4">
   <div class="form-group local-forms">
   <label>fransh Name <span class="login-danger">*</span></label>
-  <input class="form-control" type="text" [(ngModel)]="student.name_fr" placeholder="Enter Fransh Name">
+  <input class="form-control" type="text" formControlName="name_fr" placeholder="Enter Fransh Name">
   </div>
   </div>
   <div class="col-12 col-sm-4">
   <div class="form-group local-forms">
   <label> Phone Number <span class="login-danger">*</span></label>
-  <input class="form-control" type="text" [(ngModel)]="student.phone" >
+  <input class="form-control" type="text" formControlName="phone" >
   </div>
   </div>
   <div class="col-12 col-sm-4">
   <div class="form-group local-forms">
   <label>Class <span class="login-danger">*</span></label>
-  <select class="form-control select" [(ngModel)]="student.classe">
+  <select class="form-control select" formControlName="classe">
   <option *ngFor="let class of classes"  value="{{class.id}}">{{class.name}} </option>
   </select>
   </div>
@@ -68,7 +68,7 @@
   </div>
   <div class="col-12">
   <div class="student-submit">
-  <button type="submit" class="btn btn-primary" (click)="add()">Submit</button>
+  <button type="submit" class="btn btn-primary" >Submit</button>
   </div>
   </div>
   </div>
