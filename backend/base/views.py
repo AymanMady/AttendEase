@@ -65,16 +65,18 @@ class StudentViewSet(viewsets.ModelViewSet):
 
             students_created = 0
             for _, row in df.iterrows():
-                created = Student.objects.create(
-                    {
+                student = {
                         'numero': row['numero'],
                         'name_ar': row['name_ar'],
                         'name_fr': row['name_fr'],
                         'classe': row['classe'],
                         'phone': row['phone'],
                     }
-                )
-                if created:
+                
+                serializer = self.get_serializer(data=student)
+                    
+                if serializer.is_valid():
+                    serializer.save() 
                     students_created += 1
 
             return Response({"message": f"{students_created} étudiants importés avec succès"}, status=status.HTTP_201_CREATED)
