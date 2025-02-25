@@ -22,7 +22,7 @@ export class StudentService {
     });
   }
 
-  getStudent(Id: number) {
+  getStudent(Id: string) {
     const headers = this.authService.getAuthorizationHeaders();
     return this.http.get<Student>(`${this.baseUrl}/students/${Id}`, {
       headers: headers || {}
@@ -54,7 +54,7 @@ export class StudentService {
   }
 
   updateStudent(id:any, student: any){
-    return this.http.put(this.baseUrl+"/students/"+id,student
+    return this.http.put(this.baseUrl+"/students/"+id+"/",student
       ,{
         headers: this.authService.getAuthorizationHeaders()
       }
@@ -62,7 +62,7 @@ export class StudentService {
   }
 
   deleteStudent(id: any){
-    return this.http.delete(this.baseUrl+"/students/"+id
+    return this.http.delete(this.baseUrl+"/students/"+id+"/"
       ,{
         headers: this.authService.getAuthorizationHeaders()
       }

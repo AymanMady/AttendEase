@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 import pandas as pd
-from rest_framework.parsers import MultiPartParser
+from rest_framework.parsers import MultiPartParser, JSONParser
 from django.core.exceptions import ValidationError
 
 class LogoutView(APIView):
@@ -31,7 +31,7 @@ class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
     permission_classes = [IsAuthenticated]  
-    parser_classes = [MultiPartParser]  # Permet de gérer les fichiers envoyés
+    parser_classes = [MultiPartParser,JSONParser]  # Permet de gérer les fichiers envoyés
 
     @action(detail=False, methods=['get'], url_path='by_classroom/(?P<classe_id>[^/.]+)')
     def get_students_by_class(self, request, classe_id=None):
@@ -121,3 +121,60 @@ class CustomUserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
     permission_classes = [IsAuthenticated]  
+    
+    @action(detail=False, methods=['get'], url_path='teachers')
+    def get_teachers(self, request, classe_id=None):
+        """
+        Retourne les enseignent 
+        Ex: /students/teachers/
+        """
+        teachers = CustomUser.objects.filter(is_teacher=True)
+
+        if not teachers.exists():
+            return Response({"error": "Aucun enseignants trouvé"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = self.get_serializer(teachers, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+
+    @action(detail=False, methods=['post'], url_path='teachers/import')
+    def import_teachers(self, request):
+        file = request.FILES.get('file')
+        if not file:
+            return Response({"error": "Aucun fichier fourni"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            df = pd.read_excel(file, engine='openpyxl')
+            expected_columns = {'name', 'phone', 'password'}
+            if not expected_columns.issubset(df.columns):
+                return Response({"error": "Le fichier ne contient pas les colonnes requises"}, status=status.HTTP_400_BAD_REQUEST)
+
+            teachers_created = 0
+            errors = []
+
+            for index, row in df.iterrows():
+                teacher = {
+                    'name': row['name'],
+                    'phone': row['phone'],
+                    'password': row['password'],
+                    'is_teacher': True,
+                }
+                
+                serializer = self.get_serializer(data=teacher)
+                if serializer.is_valid():
+                    serializer.save()
+                    teachers_created += 1
+                else:
+                    errors.append({
+                        "ligne": index + 2,  # +2 car Pandas commence à 0 et il y a l'en-tête
+                        "errors": serializer.errors
+                    })
+
+            response_data = {"message": f"{teachers_created} enseignants importés avec succès"}
+            if errors:
+                response_data["erreurs"] = errors
+
+            return Response(response_data, status=status.HTTP_201_CREATED)
+
+        except Exception as e:
+            return Response({"error": f"Une erreur est survenue : {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)

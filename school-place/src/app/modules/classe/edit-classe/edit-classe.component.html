@@ -4,10 +4,10 @@
       <div class="page-header">
           <div class="row align-items-center">
               <div class="col">
-                  <h3 class="page-title">Add Department</h3>
+                  <h3 class="page-title">Edit Department</h3>
                   <ul class="breadcrumb">
                       <li class="breadcrumb-item"><a href="departments.html">Department</a></li>
-                      <li class="breadcrumb-item active">Add Department</li>
+                      <li class="breadcrumb-item active">Edit Department</li>
                   </ul>
               </div>
           </div>
@@ -17,7 +17,7 @@
           <div class="col-sm-12">
               <div class="card">
                   <div class="card-body">
-                      <form [formGroup]="classeForm" (ngSubmit)="onSubmit()">
+                      <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
                           <div class="row">
                               <div class="col-12">
                                   <h5 class="form-title"><span>Department Details</span></h5>

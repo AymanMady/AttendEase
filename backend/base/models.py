@@ -29,6 +29,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_teacher = models.BooleanField(default=False)
     is_director = models.BooleanField(default=False)
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name="users",null=True)
+    name = models.CharField(max_length=50,blank=True)
 
 
     objects = CustomUserManager()

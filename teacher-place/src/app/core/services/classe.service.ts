@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Classroom } from '../../model/classroom';
+import { Classe } from '../../model/classe';
 import { AuthService } from './auth.service';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ClassroomService {
+export class ClasseService {
 
   private baseUrl = environment.apiBaseUrl;
 
@@ -15,7 +15,7 @@ export class ClassroomService {
 
   GetAll(){
     const headers = this.authService.getAuthorizationHeaders();
-    return this.http.get<Classroom[]>(this.baseUrl + '/classrooms/', {
+    return this.http.get<Classe[]>(this.baseUrl + '/classes/', {
         headers: headers || {}
       }
     );
@@ -23,7 +23,7 @@ export class ClassroomService {
 
   Get(Id:number){
     const headers = this.authService.getAuthorizationHeaders();
-    return this.http.get<Classroom>(`${this.baseUrl}/classrooms/${Id}`
+    return this.http.get<Classe>(`${this.baseUrl}/classes/${Id}`
       , {
         headers: headers || {}
       }

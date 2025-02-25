@@ -19,7 +19,7 @@
   <div class="col-sm-12">
   <div class="card comman-shadow">
   <div class="card-body">
-  <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
   <div class="row">
   <div class="col-12">
   <h5 class="form-title student-info">Student Information <span><a href="javascript:;"><i class="feather-more-vertical"></i></a></span></h5>
@@ -56,7 +56,7 @@
   </select>
   </div>
   </div>
-  <!-- <div class="col-12 col-sm-4">
+  <div class="col-12 col-sm-4">
   <div class="form-group students-up-files">
   <label>Upload Student Photo (150px X 150px)</label>
   <div class="uplod">
@@ -65,7 +65,7 @@
   </label>
   </div>
   </div>
-  </div> -->
+  </div>
   <div class="col-12">
   <div class="student-submit">
   <button type="submit" class="btn btn-primary" >Submit</button>

@@ -4,10 +4,10 @@
   <div class="page-header">
   <div class="row align-items-center">
   <div class="col">
-  <h3 class="page-title">Add Teachers</h3>
+  <h3 class="page-title">Edit Teachers</h3>
   <ul class="breadcrumb">
   <li class="breadcrumb-item"><a href="teachers.html">Teachers</a></li>
-  <li class="breadcrumb-item active">Add Teachers</li>
+  <li class="breadcrumb-item active">Edit Teachers</li>
   </ul>
   </div>
   </div>
@@ -17,7 +17,7 @@
   <div class="col-sm-12">
   <div class="card">
   <div class="card-body">
-  <form [formGroup]="teacherForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
   <div class="row">
   <div class="col-12">
   <h5 class="form-title"><span>Basic Details</span></h5>
@@ -43,7 +43,7 @@
   <div class="col-12 col-sm-4">
   <div class="form-group local-forms">
   <label>Repeat Password <span class="login-danger">*</span></label>
-  <input type="text" class="form-control"  placeholder="Repeat Password">
+  <input type="text" class="form-control"  formControlName="password" placeholder="Repeat Password">
   </div>
   </div>
   <div class="col-12">

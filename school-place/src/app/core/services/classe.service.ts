@@ -22,7 +22,7 @@ export class ClasseService {
     });
   }
 
-  getClass(Id: number) {
+  getClass(Id: string) {
     const headers = this.authService.getAuthorizationHeaders();
     return this.http.get<Class>(`${this.baseUrl}/classes/${Id}`, {
       headers: headers || {}
@@ -31,7 +31,7 @@ export class ClasseService {
 
 
   addClass(classe: any): Observable<any> {
-    return this.http.post(this.baseUrl+"/classes", classe
+    return this.http.post(this.baseUrl+"/classes"+"/", classe
       ,{
         headers: this.authService.getAuthorizationHeaders()
       }
@@ -39,7 +39,7 @@ export class ClasseService {
   }
 
   updateClass(id:any, classe: Class){
-    return this.http.put(this.baseUrl+"/classes/"+id,classe
+    return this.http.put(this.baseUrl+"/classes/"+id+"/",classe
       ,{
         headers: this.authService.getAuthorizationHeaders()
       }
@@ -47,7 +47,7 @@ export class ClasseService {
   }
 
   deleteClass(id: any){
-    return this.http.delete(this.baseUrl+"/classes/"+id
+    return this.http.delete(this.baseUrl+"/classes/"+id+"/"
       ,{
         headers: this.authService.getAuthorizationHeaders()
       }

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 import { Student } from '../../../model/student';
 import { StudentService } from '../../../core/services/student.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-all-students',
-  imports: [RouterLink,CommonModule],
+  imports: [RouterLink,CommonModule,RouterModule],
   templateUrl: './all-students.component.html',
   styleUrl: './all-students.component.css'
 })
@@ -14,7 +14,7 @@ export class AllStudentsComponent {
 
   students:any[] = []
 
-  constructor(private service:StudentService) {}
+  constructor(private service:StudentService,private router: Router) {}
 
   ngOnInit(): void{
     this.getstudents()
@@ -32,7 +32,7 @@ export class AllStudentsComponent {
     );
   }
 
-  delete(id: any){
+  onDeleteStudent(id: any){
     this.service.deleteStudent(id).subscribe(
       res=>{
         console.log(res);
@@ -72,4 +72,10 @@ export class AllStudentsComponent {
     });
 
   }
+
+
+  onEditStudent(id: string): void {
+    this.router.navigate(['/students/', id]);
+  }
+
 }

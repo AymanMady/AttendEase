@@ -47,11 +47,16 @@
   <div class="col">
   <h3 class="page-title">Teachers</h3>
   </div>
-  <div class="col-auto text-end float-end ms-auto download-grp">
-  <a href="teachers.html" class="btn btn-outline-gray me-2 active"><i class="feather-list"></i></a>
-  <a href="teachers-grid.html" class="btn btn-outline-gray me-2"><i class="feather-grid"></i></a>
-  <a href="#" class="btn btn-outline-primary me-2"><i class="fas fa-download"></i> Download</a>
-  <a [routerLink]="['/teachers/add']" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+  <div class="col-auto text-end float-end ms-auto download-grp" style="display: flex;justify-content: space-between;">
+    <!-- <a href="teachers.html" class="btn btn-outline-gray me-2 active"><i class="feather-list"></i></a>
+  <a href="teachers-grid.html" class="btn btn-outline-gray me-2"><i class="feather-grid"></i></a> -->
+  <div>
+    <input type="file" (change)="onFileSelected($event)" class="form-control" accept=".xlsx">
+  </div>
+  <div>
+    <button (click)="uploadFile()" class="btn btn-outline-primary me-2"><i class="fas fa-download"></i> Import</button>
+  </div>
+  <p *ngIf="message">{{ message }}</p>  <a [routerLink]="['/teachers/add']" class="btn btn-primary"><i class="fas fa-plus"></i></a>
   </div>
   </div>
   </div>
@@ -65,7 +70,6 @@
   <input class="form-check-input" type="checkbox" value="something">
   </div>
   </th>
-  <th>ID</th>
   <th>Name</th>
   <th>Mobile Number</th>
   <th>Password</th>
@@ -79,24 +83,26 @@
   <input class="form-check-input" type="checkbox" value="something">
   </div>
   </td>
-  <td>PRE2209</td>
   <td>
   <h2 class="table-avatar">
   <a href="teacher-details.html" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="assets/img/profiles/avatar-02.jpg" alt="User Image"></a>
-  <a href="teacher-details.html">{{teacher.username}}</a>
+  <a href="teacher-details.html">{{teacher.name}}</a>
   </h2>
   </td>
   <td>{{teacher.phone}}</td>
   <td>{{teacher.password}}</td>
   <td class="text-end">
-  <div class="actions">
-  <a href="javascript:;" class="btn btn-sm bg-success-light me-2">
-  <i class="feather-eye"></i>
-  </a>
-  <a href="edit-teacher.html" class="btn btn-sm bg-danger-light">
-  <i class="feather-edit"></i>
-  </a>
-  </div>
+    <div class="actions ">
+      <a  class="btn btn-sm bg-success-light me-2 " (click)="onDeleteTeacher(teacher.id)">
+        <i class="feather-trash"></i>
+      </a>
+      <a  class="btn btn-sm bg-success-light me-2 " >
+      <i class="feather-eye"></i>
+      </a>
+      <a  class="btn btn-sm bg-danger-light" (click)="onEditTeacher(teacher.id)">
+      <i class="feather-edit"></i>
+      </a>
+      </div>
   </td>
   </tr>
   </tbody>
