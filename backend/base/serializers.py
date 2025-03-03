@@ -17,10 +17,26 @@ class SchoolSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class AttendanceSerializer(serializers.ModelSerializer):
+    name_ar = serializers.SerializerMethodField()
+    name_fr = serializers.SerializerMethodField()
+    phone = serializers.SerializerMethodField()
+    numero = serializers.SerializerMethodField()
+
     class Meta:
         model = Attendance
-        fields = '__all__'
+        fields = ['id', 'classe', 'date', 'name_ar', 'name_fr', 'numero', 'phone', 'justification', 'is_present']
 
+    def get_name_ar(self, obj):  
+        return obj.student.name_ar if obj.student else None
+    
+    def get_name_fr(self, obj):  
+        return obj.student.name_fr if obj.student else None
+
+    def get_phone(self, obj):  
+        return obj.student.phone if obj.student else None
+
+    def get_numero(self, obj):  
+        return obj.student.numero if obj.student else None
 
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:

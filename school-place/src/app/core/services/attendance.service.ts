@@ -40,4 +40,11 @@ export class AttendanceService {
       }
     )
   }
+
+  getAttendanceByClass(Id: number) {
+    const headers = this.authService.getAuthorizationHeaders();
+    return this.http.get<any[]>(`${this.baseUrl}/attendances/by_classe/${Id}`, {
+      headers: headers || {}
+    });
+  }
 }

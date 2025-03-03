@@ -11,3 +11,5 @@ bootstrapApplication(AppComponent, {
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true } // Ajoute l'interceptor
   ]
 }).catch(err => console.error(err));
+
+

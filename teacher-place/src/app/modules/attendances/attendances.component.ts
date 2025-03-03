@@ -32,7 +32,6 @@ export class AttendancesComponent {
   }
 
 
-
   getAllStudents() {
     this.id = this.act.snapshot.paramMap.get('id');
 
@@ -47,7 +46,7 @@ export class AttendancesComponent {
   saveAttendance() {
     const attendanceData = this.students.map(student => ({
       student: student.id,
-      classroom : this.id,
+      classe : this.id,
       date: new Date().toISOString().split('T')[0],
       justification: '',
       is_present: student.isPresent

@@ -116,6 +116,19 @@ class AttendanceViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
 
+    @action(detail=False, methods=['get'], url_path='by_classe/(?P<classe_id>[^/.]+)')
+    def get_attendance_by_class(self, request, classe_id=None):
+        """
+        Retourne l'attendance des étudiants appartenant à une classe spécifique.
+        Ex: /attendance/by_classroom/1/
+        """
+        attendances = Attendance.objects.filter(classe_id=classe_id)
+
+        if not attendances.exists():
+            return Response({"error": "Aucun attendance trouvé pour cette classe"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = self.get_serializer(attendances, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class CustomUserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
