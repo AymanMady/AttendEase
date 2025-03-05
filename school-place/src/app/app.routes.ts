@@ -12,6 +12,9 @@ import { EditTeacherComponent } from './modules/teacher/edit-teacher/edit-teache
 import { EditClasseComponent } from './modules/classe/edit-classe/edit-classe.component';
 import { ClassesComponent } from './modules/attendace/classes/classes.component';
 import { AttendancesComponent } from './modules/attendace/attendances/attendances.component';
+import { AllSubjectsComponent } from './modules/subject/all-subjects/all-subjects.component';
+import { AddSubjectComponent } from './modules/subject/add-subject/add-subject.component';
+import { EditSubjectComponent } from './modules/subject/edit-subject/edit-subject.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -28,4 +31,7 @@ export const routes: Routes = [
   { path: 'classes/:id', component: EditClasseComponent },
   { path: 'attendances/classes', component: ClassesComponent },
   { path: 'attendances/classes/:id', component: AttendancesComponent },
+  { path: 'subjects', component: AllSubjectsComponent },
+  { path: 'subjects/add', component: AddSubjectComponent },
+  { path: 'subjects/:id', component: EditSubjectComponent },
 ];

@@ -5,6 +5,7 @@ from .views import *
 router = DefaultRouter()
 router.register(r'students', StudentViewSet)
 router.register(r'classes', ClasseViewSet)
+router.register(r'subjects', SubjectViewSet)
 router.register(r'schools', SchoolViewSet)
 router.register(r'attendances', AttendanceViewSet)
 router.register(r'users', CustomUserViewSet)

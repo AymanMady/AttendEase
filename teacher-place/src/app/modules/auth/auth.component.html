@@ -1,53 +1,43 @@
-<div class="main-wrapper login-body">
-  <div class="login-wrapper">
-    <div class="container">
-      <div class="loginbox">
-        <div class="login-left">
-          <img class="img-fluid" src="assets/img/login.png" alt="Logo">
-        </div>
-        <div class="login-right">
-          <div class="login-right-wrap">
-            <h1>{{ 'WELCOME' | translate }}</h1>
-            <h2>{{ 'SIGN_IN' | translate }}</h2>
+<div class="page-wraper">
 
-            <form [formGroup]="loginForm">
-              <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="isError">
-                <strong>{{ 'USERNAME_PASSWORD_INCORRECT' | translate }}</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
 
-              <div class="form-group">
-                <label>{{ 'PHONE' | translate }} <span class="login-danger">*</span></label>
-                <input class="form-control" type="text" formControlName="phone">
-                <span class="profile-views"><i class="fas fa-user-circle"></i></span>
-              </div>
+  <!-- Page Content -->
+  <div class="page-content">
 
-              <div class="form-group">
-                <label>{{ 'PASSWORD' | translate }} <span class="login-danger">*</span></label>
-                <input class="form-control pass-input" type="password" formControlName="password">
-                <span class="profile-views feather-eye toggle-password"></span>
-              </div>
-
-              <div class="forgotpass">
-                <div class="remember-me">
-                  <label class="custom_check mr-2 mb-0 d-inline-flex remember-me">
-                    {{ 'REMEMBER_ME' | translate }}
-                    <input type="checkbox" name="radio">
-                    <span class="checkmark"></span>
-                  </label>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <button class="btn btn-primary btn-block" type="submit" (click)="login()" [disabled]="loginForm.invalid">
-                  {{ 'LOGIN' | translate }}
-                </button>
-              </div>
-            </form>
-
+      <!-- Banner -->
+      <div class="banner-wrapper shape-1">
+          <div class="container inner-wrapper">
+              <h2 class="dz-title">Sign In</h2>
+              <p class="mb-0">Please sign in to your registered account</p>
           </div>
-        </div>
       </div>
+      <!-- Banner End -->
+
+      <!-- <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="isError">
+        <strong>{{ 'USERNAME_PASSWORD_INCORRECT' | translate }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div> -->
+
+      <div class="container">
+    <div class="account-area">
+      <form [formGroup]="loginForm">
+        <div class="input-group">
+          <input type="text" placeholder="Phone" class="form-control" formControlName="phone">
+        </div>
+        <div class="input-group">
+          <input type="password" placeholder="Password" id="dz-password" class="form-control be-0" formControlName="password">
+          <span class="input-group-text show-pass">
+            <i class="fa fa-eye-slash"></i>
+            <i class="fa fa-eye"></i>
+          </span>
+        </div>
+                  <a href="forgot-password.html" class="btn-link d-block text-center">Forgot your password?</a>
+        <div class="input-group">
+          <button type="submit" (click)="login()" class="btn mt-2 btn-primary w-100 btn-rounded">Login</button>
+        </div>
+      </form>
     </div>
   </div>
-</div>
+  </div>
+  <!-- Page Content End -->
+

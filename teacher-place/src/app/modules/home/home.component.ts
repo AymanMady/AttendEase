@@ -4,10 +4,12 @@ import { HeaderComponent } from '../../shared/components/header/header.component
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { ClasseService } from '../../core/services/classe.service';
+import { SideBarComponent } from '../../shared/components/side-bar/side-bar.component';
+import { MenuBarComponent } from '../../shared/components/menu-bar/menu-bar.component';
 
 @Component({
   selector: 'app-home',
-  imports: [HeaderComponent,CommonModule],
+  imports: [HeaderComponent,CommonModule,SideBarComponent,MenuBarComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

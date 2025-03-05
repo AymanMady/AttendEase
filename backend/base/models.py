@@ -43,7 +43,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 class Classe(models.Model):
     name = models.CharField(max_length=100)
-    school = models.ForeignKey(School, on_delete=models.CASCADE, related_name="classrooms")
+    school = models.ForeignKey(School, on_delete=models.CASCADE, related_name="classes")
 
     def __str__(self):
         return f"{self.name} - {self.school.name}"
@@ -66,4 +66,11 @@ class Attendance(models.Model):
     justification = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.student.name_fr} - {self.classroom.name} - {self.date} - {'Présent' if self.is_present else 'Absent'}"
+        return f"{self.student.name_fr} - {self.classe.name} - {self.date} - {'Présent' if self.is_present else 'Absent'}"
+
+class Subject(models.Model):
+    name = models.CharField(max_length=100)
+    school = models.ForeignKey(School, on_delete=models.CASCADE, related_name="subjects")
+
+    def __str__(self):
+        return f"{self.name} - {self.school.name}"

@@ -1,55 +1,70 @@
-<body class="mini-sidebar">
-
-  <div class="main-wrapper slide-nav">
-
+<div class="page-wraper">
 
   <app-header></app-header>
 
+  <br><br>
+  <app-side-bar></app-side-bar>
 
-  <div class="page-wrapper" style="width: 100%;margin: 0;">
-  <div class="content container-fluid">
-
-    <div class="page-header">
-      <div class="row">
-      <div class="col-sm-12">
-      <div class="page-sub-header">
-      <h3 class="page-title">Welcome Bruklin!</h3>
-      <ul class="breadcrumb">
-      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-      <li class="breadcrumb-item active">Student</li>
-      </ul>
-      </div>
-      </div>
-      </div>
-      </div>
-
-
-      <div class="row">
-      <div class="col-xl-3 col-sm-6 col-12 d-flex" *ngFor="let classe of classes">
-      <div class="card bg-comman w-100" (click)="takeAttendace(classe.id)">
-      <div class="card-body">
-      <div class="db-widgets d-flex justify-content-between align-items-center">
-      <div class="db-info">
-      <h6>Test Attended</h6>
-      <h3>{{classe.name}}</h3>
-      </div>
-      <div class="db-icon">
-      <img src="assets/img/icons/student-icon-01.svg" alt="Dashboard Icon">
-      </div>
-      </div>
-      </div>
-      </div>
-      </div>
-      </div>
-
-  <footer>
-  <p>Copyright © 2022 Dreamguys.</p>
-  </footer>
-
-  </div>
-
+  <!-- Banner -->
+<div class="banner-wrapper author-notification" style="padding-top: 10px;">
+  <div class="container inner-wrapper">
+    <div class="dz-info">
+      <span>Good Morning</span>
+      <h2 class="name mb-0">Henry Kanwil</h2>
+    </div>
+    <div class="dz-media media-45 rounded-circle">
+      <a href="profile.html"><img src="assets/images/author/pic1.png" class="rounded-circle" alt="author-image"></a>
+    </div>
   </div>
 </div>
+  <!-- Banner End -->
 
+  <!-- Page Content -->
+  <div class="page-content">
 
-</body>
+      <div class="content-inner pt-0">
+    <div class="container fb">
+              <!-- Search -->
+              <form class="m-b30">
+                  <div class="input-group">
+                      <span class="input-group-text">
+                          <a href="javascript:void(0);" class="search-icon">
+                              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                  <path d="M20.5605 18.4395L16.7528 14.6318C17.5395 13.446 18 12.0262 18 10.5C18 6.3645 14.6355 3 10.5 3C6.3645 3 3 6.3645 3 10.5C3 14.6355 6.3645 18 10.5 18C12.0262 18 13.446 17.5395 14.6318 16.7528L18.4395 20.5605C19.0245 21.1462 19.9755 21.1462 20.5605 20.5605C21.1462 19.9748 21.1462 19.0252 20.5605 18.4395ZM5.25 10.5C5.25 7.605 7.605 5.25 10.5 5.25C13.395 5.25 15.75 7.605 15.75 10.5C15.75 13.395 13.395 15.75 10.5 15.75C7.605 15.75 5.25 13.395 5.25 10.5Z" fill="#B9B9B9"/>
+                              </svg>
+                          </a>
+                      </span>
+                      <input type="text" placeholder="Search job here..." class="form-control ps-0 bs-0">
+                  </div>
+              </form>
+
+              <!-- Dashboard Area -->
+              <div class="dashboard-area">
+        <!-- Features -->
+                  <div class="features-box">
+                      <div class="row m-b20 g-3" *ngFor="let classe of classes">
+                          <div class="col" (click)="takeAttendace(classe.id)">
+                              <div class="card card-bx card-content bg-primary">
+                                  <div class="card-body">
+                                    <h1 class="title">{{classe.name}}</h1>
+
+                                      <div class="card-info">
+                                          <p></p>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+        <!-- Features End -->
+
+      </div>
+    </div>
+  </div>
+
+  </div>
+  <!-- Page Content End-->
+
+  <app-menu-bar></app-menu-bar>
+
+</div>

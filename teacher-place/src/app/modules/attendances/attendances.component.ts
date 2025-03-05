@@ -6,11 +6,13 @@ import { HeaderComponent } from '../../shared/components/header/header.component
 import { StudentService } from '../../core/services/student.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgModel } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SideBarComponent } from '../../shared/components/side-bar/side-bar.component';
+import { MenuBarComponent } from '../../shared/components/menu-bar/menu-bar.component';
 
 @Component({
   selector: 'app-attendances',
-  imports: [HeaderComponent,CommonModule,FormsModule],
+  imports: [HeaderComponent,CommonModule,FormsModule,SideBarComponent,MenuBarComponent],
   templateUrl: './attendances.component.html',
   styleUrl: './attendances.component.css'
 })
@@ -22,7 +24,8 @@ export class AttendancesComponent {
   constructor(
     private StudentService:StudentService,
     private attendanceService:AttendanceService,
-    private act:ActivatedRoute
+    private act:ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -57,6 +60,7 @@ export class AttendancesComponent {
 
     this.attendanceService.AddAll(attendanceData).subscribe(response => {
       alert('Présence sauvegardée avec succès!');
+      this.router.navigate(['/home']);
     }, error => {
       alert('Erreur lors de la sauvegarde de la présence.');
     });

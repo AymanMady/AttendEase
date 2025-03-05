@@ -10,6 +10,10 @@ import pandas as pd
 from rest_framework.parsers import MultiPartParser, JSONParser
 from django.core.exceptions import ValidationError
 
+import logging
+logger = logging.getLogger(__name__)
+
+
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -87,9 +91,20 @@ class StudentViewSet(viewsets.ModelViewSet):
             return Response({"error": f"Une erreur est survenue : {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
 
 class ClasseViewSet(viewsets.ModelViewSet):
+    
+    logger.debug("Message de débogage")
+    logger.info("Message d'information")
+    logger.warning("Message d'avertissement")
+    logger.error("Message d'erreur")
+    logger.critical("Message critique")
     queryset = Classe.objects.all()
     serializer_class = ClasseSerializer
-    permission_classes = [IsAuthenticated]  
+    permission_classes = [IsAuthenticated] 
+
+class SubjectViewSet(viewsets.ModelViewSet):
+    queryset = Subject.objects.all()
+    serializer_class = SubjectSerializer
+    permission_classes = [IsAuthenticated] 
 
 class SchoolViewSet(viewsets.ModelViewSet):
     queryset = School.objects.all()

@@ -11,6 +11,11 @@ class ClasseSerializer(serializers.ModelSerializer):
         model = Classe
         fields = '__all__'
 
+class SubjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subject
+        fields = '__all__'
+
 class SchoolSerializer(serializers.ModelSerializer):
     class Meta:
         model = School

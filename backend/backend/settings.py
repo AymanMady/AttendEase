@@ -160,3 +160,33 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
 
+
+# ======================================= logging ======================================
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'detailed': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',  # Enregistre tous les niveaux de logs
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs/application.log'),  # Fichier log
+            'formatter': 'detailed',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',  # Capture DEBUG et supérieur
+            'propagate': True,
+        },
+    },
+}
+
+
+# ==================================================================================================

@@ -65,6 +65,7 @@ export class AllStudentsComponent {
     this.service.import(formData).subscribe({
       next: (response) => {
         this.message = response.message
+        this.ngOnInit();
       },
       error: (error) => {
         this.message = error.error.error
