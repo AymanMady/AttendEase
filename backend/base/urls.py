@@ -13,4 +13,5 @@ router.register(r'users', CustomUserViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('logout/', LogoutView.as_view(), name='logout'),
+    path('token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
 ]

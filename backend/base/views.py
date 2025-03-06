@@ -9,9 +9,16 @@ from rest_framework_simplejwt.tokens import RefreshToken
 import pandas as pd
 from rest_framework.parsers import MultiPartParser, JSONParser
 from django.core.exceptions import ValidationError
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 import logging
 logger = logging.getLogger(__name__)
+
+
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
+
 
 
 class LogoutView(APIView):
@@ -91,12 +98,6 @@ class StudentViewSet(viewsets.ModelViewSet):
             return Response({"error": f"Une erreur est survenue : {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
 
 class ClasseViewSet(viewsets.ModelViewSet):
-    
-    logger.debug("Message de débogage")
-    logger.info("Message d'information")
-    logger.warning("Message d'avertissement")
-    logger.error("Message d'erreur")
-    logger.critical("Message critique")
     queryset = Classe.objects.all()
     serializer_class = ClasseSerializer
     permission_classes = [IsAuthenticated] 
@@ -116,6 +117,15 @@ class AttendanceViewSet(viewsets.ModelViewSet):
     serializer_class = AttendanceSerializer
     permission_classes = [IsAuthenticated]  
 
+    def get_serializer_class(self):
+        """
+        Utilise `AttendanceCreateSerializer` uniquement pour `bulk_create`,
+        et `AttendanceSerializer` pour le reste.
+        """
+        if self.action == 'bulk_create':
+            return AttendanceCreateSerializer
+        return AttendanceSerializer
+    
     @action(detail=False, methods=['post'])
     def bulk_create(self, request, *args, **kwargs):
         """

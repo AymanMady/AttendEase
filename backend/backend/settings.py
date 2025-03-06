@@ -173,16 +173,16 @@ LOGGING = {
     },
     'handlers': {
         'file': {
-            'level': 'DEBUG',  # Enregistre tous les niveaux de logs
+            'level': 'INFO',  
             'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs/application.log'),  # Fichier log
+            'filename': os.path.join(BASE_DIR, 'logs/application.log'),  
             'formatter': 'detailed',
         },
     },
     'loggers': {
         'django': {
             'handlers': ['file'],
-            'level': 'DEBUG',  # Capture DEBUG et supérieur
+            'level': 'INFO',  
             'propagate': True,
         },
     },

@@ -1,18 +1,15 @@
+import { SubjectService } from './../../core/services/subject.service';
 import { AttendanceService } from './../../core/services/attendance.service';
-import { Attendance } from './../../model/attendance';
-import { Student } from './../../model/student';
 import { Component } from '@angular/core';
-import { HeaderComponent } from '../../shared/components/header/header.component';
 import { StudentService } from '../../core/services/student.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgModel } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SideBarComponent } from '../../shared/components/side-bar/side-bar.component';
 import { MenuBarComponent } from '../../shared/components/menu-bar/menu-bar.component';
 
 @Component({
   selector: 'app-attendances',
-  imports: [HeaderComponent,CommonModule,FormsModule,SideBarComponent,MenuBarComponent],
+  imports: [CommonModule,FormsModule,MenuBarComponent],
   templateUrl: './attendances.component.html',
   styleUrl: './attendances.component.css'
 })
@@ -20,20 +17,27 @@ export class AttendancesComponent {
 
   students: any[] = [];
   id: any;
+  subjects: any[] = [];
+
+  selected_subject = '';
+  selected_period = '';
 
   constructor(
     private StudentService:StudentService,
     private attendanceService:AttendanceService,
     private act:ActivatedRoute,
     private router: Router,
+    private SubjectService:SubjectService
   ) {}
 
   ngOnInit(): void {
     this.getAllStudents();
-
-    console.log(this.id);
+    this.getsubjects();
   }
 
+  getsubjects(){
+    this.SubjectService.getAllsubjects().subscribe( (data:any) => this.subjects = data);
+  }
 
   getAllStudents() {
     this.id = this.act.snapshot.paramMap.get('id');
@@ -52,7 +56,9 @@ export class AttendancesComponent {
       classe : this.id,
       date: new Date().toISOString().split('T')[0],
       justification: '',
-      is_present: student.isPresent
+      is_present: student.isPresent,
+      period: this.selected_period,
+      subject: this.selected_subject
     }));
 
 

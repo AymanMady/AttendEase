@@ -1,5 +1,19 @@
 from rest_framework import serializers
 from .models import *
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        
+        # Ajouter les informations de l'utilisateur
+        data['phone'] = self.user.phone
+        data['name'] = self.user.name  
+        data['is_director'] = self.user.is_director  
+        data['is_teacher'] = self.user.is_teacher  
+        data['id'] = self.user.id  
+
+        return data
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,6 +35,11 @@ class SchoolSerializer(serializers.ModelSerializer):
         model = School
         fields = '__all__'
 
+class AttendanceCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Attendance
+        fields = ['id', 'classe', 'date', 'justification', 'is_present','student', 'subject', 'period']
+ 
 class AttendanceSerializer(serializers.ModelSerializer):
     name_ar = serializers.SerializerMethodField()
     name_fr = serializers.SerializerMethodField()

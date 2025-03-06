@@ -58,15 +58,6 @@ class Student(models.Model):
     def __str__(self):
         return f"{self.name_fr} ({self.numero})"
 
-class Attendance(models.Model):  
-    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="attendances")
-    classe = models.ForeignKey(Classe, on_delete=models.CASCADE, related_name="attendances")
-    date = models.DateField()
-    is_present = models.BooleanField(default=False)
-    justification = models.TextField(blank=True, null=True)
-
-    def __str__(self):
-        return f"{self.student.name_fr} - {self.classe.name} - {self.date} - {'Présent' if self.is_present else 'Absent'}"
 
 class Subject(models.Model):
     name = models.CharField(max_length=100)
@@ -74,3 +65,16 @@ class Subject(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.school.name}"
+    
+class Attendance(models.Model):  
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="attendances")
+    classe = models.ForeignKey(Classe, on_delete=models.CASCADE, related_name="attendances")
+    date = models.DateField()
+    is_present = models.BooleanField(default=False)
+    justification = models.TextField(blank=True, null=True)
+    period = models.CharField(max_length=20, blank=True, null=True)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="attendances")
+
+    def __str__(self):
+        return f"{self.student.name_fr} - {self.classe.name} - {self.date} - {'Présent' if self.is_present else 'Absent'}"
+
