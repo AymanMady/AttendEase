@@ -93,7 +93,15 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "assets/vendor/swiper/swiper-bundle.min.js",
+              "assets/js/dz.carousel.js",
+              "index.js",
+              "assets/js/custom.js",
+              "assets/js/settings.js",
+              "assets/vendor/bootstrap/js/bootstrap.bundle.min.js",
+              "assets/js/jquery.js"
+            ]
           }
         }
       }

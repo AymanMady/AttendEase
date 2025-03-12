@@ -6,6 +6,7 @@ import { Router, RouterLink } from '@angular/router';
 import { ClasseService } from '../../core/services/classe.service';
 import { SideBarComponent } from '../../shared/components/side-bar/side-bar.component';
 import { MenuBarComponent } from '../../shared/components/menu-bar/menu-bar.component';
+import { SidebarService } from '../../core/services/sidebar.service';
 
 @Component({
   selector: 'app-home',
@@ -16,8 +17,13 @@ import { MenuBarComponent } from '../../shared/components/menu-bar/menu-bar.comp
 export class HomeComponent {
 
   classes: Classe[] = [];
+  isSidebarVisible = false;
 
-  constructor(private router: Router,private classeService:ClasseService) {}
+  constructor(
+    private router: Router,
+    private classeService:ClasseService,
+    private sidebarService: SidebarService
+  ) {}
 
 
   ngOnInit(): void {
@@ -29,5 +35,11 @@ export class HomeComponent {
 
   takeAttendace(id:number){
     this.router.navigate(['/attendances/' , id]);
+  }
+
+
+
+  closeSidebar() {
+    this.sidebarService.closeSidebar();
   }
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { SidebarService } from '../../../core/services/sidebar.service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,11 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class HeaderComponent {
 
-  constructor(private router: Router,private authservice:AuthService) {}
+  constructor(
+    private router: Router,
+    private authservice:AuthService,
+    private sidebarService: SidebarService
+  ) {}
 
   logout(): void {
     const refreshToken = localStorage.getItem('refresh_token');
@@ -19,4 +24,8 @@ export class HeaderComponent {
     this.router.navigate(['login']);
   }
 
+  toggleSidebar() {
+    this.sidebarService.toggleSidebar();
+  }
+  
 }
